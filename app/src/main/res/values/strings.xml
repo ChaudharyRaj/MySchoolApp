@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MySchool</string>
+    <string name="create_account_message">Not Registered? Create account</string>
+    <string name="suggestforsignin">Already have an account? Sing In</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

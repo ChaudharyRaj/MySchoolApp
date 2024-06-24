@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1004030403863",
+    "firebase_url": "https://myschoolapp-7130c-default-rtdb.firebaseio.com",
+    "project_id": "myschoolapp-7130c",
+    "storage_bucket": "myschoolapp-7130c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004030403863:android:ad463a39ac0eb61b3d4352",
+        "android_client_info": {
+          "package_name": "com.example.registrationapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBffDS8ggBOiKI_XrBYgLg1C0-WpOuLsm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
