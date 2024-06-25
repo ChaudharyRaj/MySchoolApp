@@ -58,19 +58,18 @@ class SignInFragement : Fragment() {
         binding.progressCircular.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
-
             try {
                 val snapshot = database.get().await()
                 var userFound = false;
                 for(userSnapshot in snapshot.children ){
-
                     currentuser = userSnapshot.getValue(User::class.java)!!
-
                     if(currentuser !== null && currentuser.email == emailid && currentuser.password == password){
                         userFound = true;
                         withContext(Dispatchers.Main){
                             Toast.makeText(context,"Login successful",Toast.LENGTH_SHORT).show()
-                            val intent = Intent(context,MainActivity::class.java)
+                            val intent = Intent(context,MainActivity::class.java).apply {
+                                putExtra("uid",currentuser.uid.toString())
+                            }
                             binding.progressCircular.visibility = View.GONE
                             startActivity(intent)
                             activity?.finish()

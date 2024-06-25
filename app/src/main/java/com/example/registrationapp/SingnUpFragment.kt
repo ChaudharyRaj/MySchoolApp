@@ -48,29 +48,30 @@ class SingnUpFragment : Fragment() {
         if (username.isEmpty() || email.isEmpty() || phomenumber.isEmpty() || password.isEmpty()){
             Toast.makeText(context,"all fields are mandatory",Toast.LENGTH_SHORT).show()
         }else{
-        database = FirebaseDatabase.getInstance().getReference("Users")
-        val userid = database.push().key!!
-        val newuser = User(uid = userid,name = username, email = email, phone = phomenumber, password = password)
-        binding.singnupLayoutView.visibility = View.GONE
-        binding.progressCircular.visibility = View.VISIBLE
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                database.child(userid).setValue(newuser).await()
-                withContext(Dispatchers.Main) {
-                    binding.singnupLayoutView.visibility = View.VISIBLE
-                    binding.progressCircular.visibility = View.GONE
-                    clearUserInput()
-                    Toast.makeText(context, "new user has been created", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    binding.singnupLayoutView.visibility = View.VISIBLE
-                    binding.progressCircular.visibility = View.GONE
-                    clearUserInput()
-                    Toast.makeText(context, "somthing went wrong!", Toast.LENGTH_SHORT).show()
+
+            database = FirebaseDatabase.getInstance().getReference("Users")
+            val userid = database.push().key!!
+            val newuser = User(uid = userid,name = username, email = email, phone = phomenumber, password = password)
+            binding.singnupLayoutView.visibility = View.GONE
+            binding.progressCircular.visibility = View.VISIBLE
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    database.child(userid).setValue(newuser).await()
+                    withContext(Dispatchers.Main) {
+                        binding.singnupLayoutView.visibility = View.VISIBLE
+                        binding.progressCircular.visibility = View.GONE
+                        clearUserInput()
+                        Toast.makeText(context, "new user has been created", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        binding.singnupLayoutView.visibility = View.VISIBLE
+                        binding.progressCircular.visibility = View.GONE
+                        clearUserInput()
+                        Toast.makeText(context, "somthing went wrong!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-        }
         }
     }
 
