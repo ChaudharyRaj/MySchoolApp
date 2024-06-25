@@ -1,16 +1,8 @@
-# Ignore node_modules directory
-node_modules/
-
-# Ignore logs
-*.log
-
-# Ignore OS generated files
+*.iml
+.gradle
+/local.properties
+/.idea/*
+!/.idea/vcs.xml
 .DS_Store
-Thumbs.db
-
-# Ignore build outputs
 /build
-/dist
-
-# Ignore environment variables file
-.env
+/captures.externalNativeBuild.cxxlocal.properties
