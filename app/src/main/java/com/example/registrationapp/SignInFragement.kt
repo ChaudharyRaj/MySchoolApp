@@ -1,5 +1,6 @@
 package com.example.registrationapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,27 +38,30 @@ class SignInFragement : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _bindign = LayoutSigninBinding.inflate(layoutInflater,container,false)
+        binding.logininputLayout.visibility = View.VISIBLE
         binding.creteNewAccountbtn.setOnClickListener {
             (activity as LoginScreen).SwithToSignUpFragment()
         }
+
         binding.loginbtn.setOnClickListener {
             val username = binding.usernameView.text.toString()
             val password = binding.passwordView.text.toString()
             auth = FirebaseAuth.getInstance()
-            loginTouser(username,password)
+            loginTouser(username, password)
         }
         return binding.root
     }
 
     fun loginTouser(emailid: String, password: String) {
         database = FirebaseDatabase.getInstance().getReference("Users")
+        binding.logininputLayout.visibility = View.GONE
+        binding.progressCircular.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
 
             try {
                 val snapshot = database.get().await()
                 var userFound = false;
-
                 for(userSnapshot in snapshot.children ){
 
                     currentuser = userSnapshot.getValue(User::class.java)!!
@@ -66,19 +70,27 @@ class SignInFragement : Fragment() {
                         userFound = true;
                         withContext(Dispatchers.Main){
                             Toast.makeText(context,"Login successful",Toast.LENGTH_SHORT).show()
+                            val intent = Intent(context,MainActivity::class.java)
+                            binding.progressCircular.visibility = View.GONE
+                            startActivity(intent)
+                            activity?.finish()
                         }
                         break
                     }
                 }
 
                 if(!userFound){
-                    withContext(Dispatchers.IO){
+                    withContext(Dispatchers.Main){
                         Toast.makeText(context,"user not found",Toast.LENGTH_SHORT).show()
+                        binding.logininputLayout.visibility = View.VISIBLE
+                        binding.progressCircular.visibility = View.GONE
                     }
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main){
+                    binding.logininputLayout.visibility = View.VISIBLE
+                    binding.progressCircular.visibility = View.GONE
                     Toast.makeText(context,"something went wrong!",Toast.LENGTH_SHORT).show()
                 }
             }

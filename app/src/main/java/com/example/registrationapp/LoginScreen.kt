@@ -26,14 +26,12 @@ class LoginScreen : AppCompatActivity() {
     fun SwithToSigninFragment(){
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id,SignInFragement())
-            .addToBackStack(null)
             .commit()
     }
 
     fun SwithToSignUpFragment(){
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id,SingnUpFragment())
-            .addToBackStack(null)
             .commit()
     }
 
